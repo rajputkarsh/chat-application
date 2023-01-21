@@ -4,3 +4,4 @@ export { default as ChannelListContainer } from './channelListContainer/ChannelL
 export { default as ChannelSearch } from './channelSearch/ChannelSearch';
 export { default as TeamChannelList } from './teamChannelList/TeamChannelList';
 export { default as TeamChannelPreview } from './teamChannelPreview/TeamChannelPreview';
+export { default as Auth } from './Auth/Auth';
