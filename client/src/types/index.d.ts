@@ -27,3 +27,10 @@ type AddChannelType = {
   setToggleContainer: Dispatch<SetStateAction<boolean>>, 
   type: string     
 }
+
+type SignupResponse ={
+  token: String,
+  userId: String,
+  hashedPassword: String,
+  fullName: String,
+}
