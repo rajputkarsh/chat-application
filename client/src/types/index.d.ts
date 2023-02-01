@@ -8,7 +8,12 @@ export  type TeamChannelType = {
   children?: JSX.Element | JSX.Element[], 
   error: Object | null, 
   loading?: boolean | undefined, 
-  type?: CHAT_TYPE | undefined
+  type?: CHAT_TYPE | undefined,
+  isCreating: boolean,
+  setCreateType: Dispatch<SetStateAction<string>>,
+  setIsCreating: Dispatch<SetStateAction<boolean>>, 
+  setIsEditing: Dispatch<SetStateAction<boolean>>, 
+  setToggleContainer: Dispatch<SetStateAction<boolean>>,   
 }
 
 export  type TeamPreviewType = {
@@ -20,7 +25,8 @@ export  type TeamPreviewType = {
   setToggleContainer: Dispatch<SetStateAction<boolean>>,  
 }
 
-type AddChannelType = {
+export type AddChannelType = {
+  isCreating: boolean,
   setCreateType: Dispatch<SetStateAction<string>>, 
   setIsCreating: Dispatch<SetStateAction<boolean>>, 
   setIsEditing: Dispatch<SetStateAction<boolean>>, 
@@ -28,6 +34,37 @@ type AddChannelType = {
   type: string     
 }
 
+export type ChannelListContainerProps = {
+  isCreating: boolean,
+  setIsCreating: Dispatch<SetStateAction<boolean>>,
+  setCreateType: Dispatch<SetStateAction<string>>,
+  setIsEditing: Dispatch<SetStateAction<boolean>>,  
+}
+
+export type ChannelContainerProps = {
+  isCreating: boolean,
+  setIsCreating: Dispatch<SetStateAction<boolean>>,
+  isEditing: boolean,
+  setIsEditing: Dispatch<SetStateAction<boolean>>,
+  createType: string,
+}
+
+export type CreateChannelType = {
+  createType: string,
+  setIsCreating: Dispatch<SetStateAction<boolean>>
+}
+
+export type CloseCreateChannelType = {
+  setIsEditing?: Dispatch<SetStateAction<boolean>>,
+  setIsCreating?: Dispatch<SetStateAction<boolean>>
+}
+
+export type ChannelNameInputType = {
+  channelName: string
+  setChannelName: Dispatch<SetStateAction<string>>
+}
+
+// response interfaces
 type SignupResponse ={
   token: String,
   userId: String,

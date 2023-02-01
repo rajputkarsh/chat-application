@@ -1,7 +1,7 @@
 
 import { connect } from 'getstream';
 import bcrypt from 'bcrypt';
-import { StreamChat } from 'stream-chat';
+import { StreamChat, UserResponse } from 'stream-chat';
 import crypto from 'crypto';
 
 class AuthController{
@@ -11,10 +11,10 @@ class AuthController{
       const serverClient = connect(process.env.STREAM_API_KEY as string, process.env.STREAM_API_SECRET as string, process.env.STREAM_APP_ID as string)
       const client = StreamChat.getInstance(process.env.STREAM_API_KEY as string, process.env.STREAM_API_SECRET as string);
 
-      const { users } = await client.queryUsers({ email: email });
+      const { users }: { users: Array<UserResponse> } = await client.queryUsers({ email: email });
       if(!users.length) return Promise.reject('User Not Found');
 
-      const success = await bcrypt.compare(password, users[0].hashedPassword);
+      const success = await bcrypt.compare(password, users[0].password as string);
       const token = serverClient.createUserToken(users[0].id);
 
       if(!success) return Promise.reject('Incorrect Password');

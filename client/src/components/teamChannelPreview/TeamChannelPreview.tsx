@@ -3,7 +3,7 @@ import { Avatar, useChatContext } from "stream-chat-react";
 import { TeamPreviewType } from "../../types";
 
 
-function TeamChannelPreview({ setActiveChannel, setIsCreating, setIsEditing, setToggleContainer, channel, type }: TeamPreviewType){
+function TeamChannelPreview({ setActiveChannel, channel, type, setIsCreating, setIsEditing, setToggleContainer}: TeamPreviewType){
   const { channel: activeChannel, client } = useChatContext();
 
   const ChannelPreview = () => (

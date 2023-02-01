@@ -4,7 +4,7 @@ import axios from 'axios';
 import { URLS } from '../../constants';
 import { SignupResponse } from '../../types';
 
-const signinImage = require('../../assets/signup.jpg');
+const signinImage = require('../../assets/signup.png');
 
 const cookies = new Cookies();
 

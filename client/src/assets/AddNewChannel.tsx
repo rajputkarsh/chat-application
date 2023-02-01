@@ -5,7 +5,9 @@ import { AddChannelType } from "../types";
 
 
 export const AddChannel = (
-  { setCreateType, 
+  { 
+    isCreating,
+    setCreateType, 
     setIsCreating, 
     setIsEditing, 
     setToggleContainer, 

@@ -1,7 +1,8 @@
+import { AddChannel } from '../../assets/AddNewChannel';
 import { ERROR, TEXT } from '../../constants';
 import { TeamChannelType } from '../../types';
 
-function TeamChannelList({children, error=false, loading, type} : TeamChannelType) {
+function TeamChannelList({children, error=false, loading, type, isCreating, setIsCreating, setCreateType, setIsEditing, setToggleContainer} : TeamChannelType) {
 
   if(error){
     return type === 'team' ? (
@@ -32,14 +33,14 @@ function TeamChannelList({children, error=false, loading, type} : TeamChannelTyp
         <p className="team-channel-list__header__title">
           {type === 'team' ? 'Channels' : 'Direct Messages'}
         </p>        
-        {/* <AddChannel 
+        <AddChannel 
           isCreating={isCreating}
           setIsCreating={setIsCreating}
           setCreateType={setCreateType} 
           setIsEditing={setIsEditing}
-          type={type === 'team' ? 'team' : 'messaging'}
+          type={type === 'team' ? 'team' : 'individual'}
           setToggleContainer={setToggleContainer}
-        />         */}
+        />        
       </div>
       {
         children

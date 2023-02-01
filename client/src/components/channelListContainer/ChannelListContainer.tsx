@@ -1,16 +1,19 @@
+// @ts-nocheck
 
-import { SetStateAction } from "react";
+import { SetStateAction, useState } from "react";
 import { ChannelList, useChatContext } from "stream-chat-react"
 import Cookies from "universal-cookie";
 import { ChannelSearch, TeamChannelList, TeamChannelPreview } from "../";
 
 import { TEXT } from '../../constants';
+import { ChannelListContainerProps } from "../../types";
 
 const ChatLogoIcon = require('../../assets/icon.png');
 const LogoutIcon = require('../../assets/logout.png');
 
+const cookies = new Cookies();
 
-const Sidebar = () => (
+const Sidebar = ({ logout } : {logout: () => void}) => (
   <div className="channel-list__sidebar">
 
     <div className="channel-list__sidebar__icon1">
@@ -20,7 +23,7 @@ const Sidebar = () => (
     </div>
 
     <div className="channel-list__sidebar__icon2">
-      <div className="icon1__inner">
+      <div className="icon1__inner" onClick={logout}>
         <img src={LogoutIcon} alt="Logout" width={30}/>
       </div>
     </div>
@@ -38,10 +41,25 @@ const Header = () => (
   </div>
 )
 
-const ChannelListContainer = () => {
+const ChannelListContainer = ({ isCreating, setIsCreating, setCreateType, setIsEditing }: ChannelListContainerProps) => {
+
+  const logout = () => {
+    cookies.remove("token");
+    cookies.remove('userId');
+    cookies.remove('username');
+    cookies.remove('fullName');
+    cookies.remove('avatarURL');
+    cookies.remove('hashedPassword');
+    cookies.remove('phoneNumber');
+
+    window.location.reload();    
+  }
+
+  const [toggleContainer, setToggleContainer] = useState(false);
+
   return (
     <>
-      <Sidebar />
+      <Sidebar logout={logout} />
       <div className="channel-list__list__wrapper">
         <Header />
         <ChannelSearch />
@@ -50,14 +68,21 @@ const ChannelListContainer = () => {
           //  channelRenderFilterFn={ () => {return null} }
            List = {
             (listProps => (
-              <TeamChannelList type="team" {...listProps} />
+              <TeamChannelList 
+              type="team" 
+              isCreating={isCreating}
+              setIsCreating={setIsCreating}
+              setCreateType={setCreateType}
+              setIsEditing={setIsEditing}
+              setToggleContainer={setToggleContainer}
+              {...listProps} />
             ))
            }
            Preview = {(previewProps) => (
             <TeamChannelPreview
-              setIsCreating={} 
-              setIsEditing={} 
-              setToggleContainer={} 
+              setIsCreating={setIsCreating}
+              setIsEditing={setIsEditing} 
+              setToggleContainer={setToggleContainer} 
               type={"team"} 
               {...previewProps}            />
            )}
@@ -67,12 +92,25 @@ const ChannelListContainer = () => {
           //  channelRenderFilterFn={ () => {return null} }
            List = {
             (listProps => (
-              <TeamChannelList type="individual" {...listProps} />
+              <TeamChannelList
+                {...listProps}
+                type="team"
+                isCreating={isCreating}
+                setIsCreating={setIsCreating}
+                setCreateType={setCreateType} 
+                setIsEditing={setIsEditing}
+                setToggleContainer={setToggleContainer}
+              />
             ))
            }
            Preview = {(previewProps) => (
             <TeamChannelPreview
-             type={"individual"} {...previewProps}            />
+              {...previewProps}
+              setIsCreating={setIsCreating}
+              setIsEditing={setIsEditing}
+              setToggleContainer={setToggleContainer}
+              type="team" 
+            />
            )}
         />
       </div>
